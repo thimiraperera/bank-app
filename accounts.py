@@ -1,4 +1,5 @@
 # accounts.py — Account Registry
+from datetime import datetime
 
 registry = {} # master dict: account_id -> account dict
 
@@ -14,4 +15,9 @@ def create_account(account_id, owner, balance=0):
     return account
 
 def get_account(account_id):
-    return registry.get(account_id) # returns a REFERENCE, not a copy
+    acc = registry.get(account_id)
+
+    if acc:
+        acc["last_accessed"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    return acc
